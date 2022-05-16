@@ -11,10 +11,14 @@ router.post('/',
     [
         body('name')
             .isLength({ min: 3 })
+            .trim()
+            .escape()
             .withMessage('Please enter a name.'),
         body('email')
             .isLength({ min: 3 })
-            .withMessage('Please enter an email.'),
+            .isEmail()
+            .normalizeEmail()
+            .withMessage('Please enter an email address.'),
     ],(req, res) => {
         const errors = validationResult(req);
 
