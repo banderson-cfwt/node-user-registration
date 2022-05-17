@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     res.render('form', { title: 'Registration Form' });
 });
 
-router.get('/registrations', (req, res) => {
+router.get('/registrations', auth.connect(basic), (req, res) => {
     Registration.find()
         .then((registrations) => {
             res.render('index', { title: 'Listing Registrations', registrations });
