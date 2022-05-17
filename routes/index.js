@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const auth = require('http-auth');
-const basic - auth.basic({
+const authConnect = require("http-auth-connect");
+const basic = auth.basic({
     file: path.join(__dirname, '../users.htpasswd'),
 });
 const { body, validationResult } = require('express-validator');
@@ -14,13 +15,21 @@ router.get('/', (req, res) => {
     res.render('form', { title: 'Registration Form' });
 });
 
-router.get('/registrations', auth.connect(basic), (req, res) => {
-    Registration.find()
+// router.get('/registrations', basic.check(), (req, res) => {
+//     Registration.find()
+//         .then((registrations) => {
+//             res.render('index', { title: 'Listing Registrations', registrations });
+//         })
+//         .catch(() => { res.send('Sorry! Something went wrong.'); });
+//     });
+
+router.get('/registrations', basic.check((req, res) => {
+        Registration.find()
         .then((registrations) => {
             res.render('index', { title: 'Listing Registrations', registrations });
         })
         .catch(() => { res.send('Sorry! Something went wrong.'); });
-});
+    }));
 
 router.post('/', 
     [
