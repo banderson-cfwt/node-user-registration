@@ -18,7 +18,7 @@
     "http-auth": "^4.1.9",
     "http-auth-connect": "^1.0.5",
     "jshint": "^2.13.4",
-    "mongoose": "^6.3.3",
+    "mongoose": "^6.11.3",
     "pug": "^3.0.2"
   },
   "devDependencies": {
